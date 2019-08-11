@@ -67,6 +67,10 @@ class Phisherman:
         return phish_url
 
 
+    def run(self):
+        pass
+
+
     start = property(__get_start, __set_start)
     end = property(__get_end, __set_end)
     njobs = property(__get_njobs)
