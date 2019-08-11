@@ -36,9 +36,9 @@ class Phisherman:
 
     def __set_njobs(self, mp):
         if mp:
-            self.__njobs = os.cpu_count() - 1
+            return os.cpu_count() - 1
         else:
-            self.__njobs = 1
+            return 1
 
 
     def __make_page_url(self, page):
@@ -69,5 +69,4 @@ class Phisherman:
 
     start = property(__get_start, __set_start)
     end = property(__get_end, __set_end)
-    njobs = property(__get_njobs, __set_njobs)
-
+    njobs = property(__get_njobs)
