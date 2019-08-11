@@ -1,30 +1,44 @@
 
 
+import os
+import multiprocessing as mp
 import requests
 from bs4 import BeautifulSoup as bs
 
 
 class Phisherman:
 
-    def __init__(self, start, end):
+    def __init__(self, start, end, mp=True):
         self.__start = start
         self.__end = end
+        self.__njobs = self.__set_njobs(mp)
 
     
-    def get_start(self):
+    def __get_start(self):
         return self.__start
 
     
-    def set_start(self, start):
+    def __set_start(self, start):
         self.__start = start
 
 
-    def get_end(self):
+    def __get_end(self):
         return self.__end
 
 
-    def set_end(self, end):
+    def __set_end(self, end):
         self.__end = end
+
+
+    def __get_njobs(self):
+        return self.__njobs
+
+
+    def __set_njobs(self, mp):
+        if mp:
+            self.__njobs = os.cpu_count() - 1
+        else:
+            self.__njobs = 1
 
 
     def __make_page_url(self, page):
@@ -33,7 +47,8 @@ class Phisherman:
 
 
     def __make_detail_page_url(self, id):
-        return "https://www.phishtank.com/phish_detail.php?phish_id={}".format(id)
+        return "https://www.phishtank.com/phish_detail.php?\
+            phish_id={}".format(id)
 
 
     def __get_ids(self, page):
@@ -52,6 +67,7 @@ class Phisherman:
         return phish_url
 
 
-    start = property(get_start, set_start)
-    end = property(get_end, set_end)
+    start = property(__get_start, __set_start)
+    end = property(__get_end, __set_end)
+    njobs = property(__get_njobs, __set_njobs)
 
