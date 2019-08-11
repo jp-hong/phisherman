@@ -13,6 +13,14 @@ def make_detail_page_url(id):
     return "https://www.phishtank.com/phish_detail.php?phish_id={}".format(id)
 
 
+def get_ids(page):
+    response = requests.get(make_page_url(page))
+    soup = bs(response.content, "html.parser")
+    elements = soup.select(".value:first-child > a")
+    ids = [element.text for element in elements]
+    return ids
+
+
 def get_data(id):
     response = requests.get(make_detail_page_url(id))
     soup = bs(response.content, "html.parser")
@@ -22,8 +30,8 @@ def get_data(id):
 
 
 def test():
-    url = get_data(6154916)
-    print(url)
+    ids = get_ids(0)
+    print(ids)
 
 
 test()
