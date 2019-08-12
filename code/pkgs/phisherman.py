@@ -62,13 +62,25 @@ class Phisherman:
     def __get_data(self, id):
         response = requests.get(self.__make_detail_page_url(id))
         soup = bs(response.content, "html.parser")
+
         phish_url = soup.select_one(".padded > div:nth-child(4) > \
             span:nth-child(1) > b:nth-child(1)").text
-        return phish_url
+
+        date = soup.select_one(".small").text
+        return phish_url, date
+
+
+    def __parse_date_string(self, date_str):
+        return " ".join(date_str.split()[1:6])
 
 
     def run(self):
         pass
+
+
+    def test_run(self):
+        phish_url, date = self.__get_data(6156913)
+        return phish_url, self.__parse_date_string(date)
 
 
     start = property(__get_start, __set_start)
