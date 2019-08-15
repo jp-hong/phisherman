@@ -2,6 +2,16 @@
 
 from pkgs.phisherman import Phisherman
 import sys
+import pickle
+
+
+def save_pkl(data, path):
+    with open(path, "wb") as f:
+        pickle.dump(data, f)
+
+
+def save_csv(data, path):
+    pass
 
 
 def process_args():
@@ -34,8 +44,12 @@ def crawl():
 # test function
 def test():
     p = Phisherman(0, 1)
+<<<<<<< HEAD
     phish_url, date = p.test_run()
     print(phish_url, date)
+=======
+    print(p.test_run())
+>>>>>>> dev
 
 
 test()
