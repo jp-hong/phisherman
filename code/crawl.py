@@ -31,7 +31,7 @@ def crawl():
 # test function
 def test():
     p = Phisherman(0, 1)
-    print(p.start, p.end, p.njobs)
+    print(p.run())
 
 
 test()
