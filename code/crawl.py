@@ -25,13 +25,18 @@ def process_args():
 
 
 def crawl():
-    pass
+    
+    start, end, mp = process_args()
+
+    print("Crawling pages {} to {}, multiprocessing={}".format(start, end, mp))
 
 
 # test function
 def test():
     p = Phisherman(0, 1)
-    print(p.start, p.end, p.njobs)
+    phish_url, date = p.test_run()
+    print(phish_url, date)
 
 
 test()
+# crawl()
