@@ -40,7 +40,7 @@ class Phisherman:
 
     def __get_ids(self, page):
 
-        print("Gathering links from page [{}]...".format(page), end="")
+        print("Gathering links from page [{}]... ".format(page), end="")
         response = requests.get(self.__make_page_url(page))
 
         if response.status_code == 200:
@@ -56,7 +56,7 @@ class Phisherman:
 
     def __get_data(self, url_id):
 
-        print("Gathering data for url [id={}]...".format(url_id), end="")
+        print("Gathering data for url [id={}]... ".format(url_id), end="")
         response = requests.get(self.__make_detail_page_url(url_id))
 
         if response.status_code == 200:
@@ -79,7 +79,7 @@ class Phisherman:
 
 
     def crawl(self):
-        print("Start crawling! Phisherman is gathering data...")
+        print("Start crawling! Phisherman is gathering data... ")
         url_ids = []
         data = []
         

@@ -1,16 +1,23 @@
 
 
 import sys
-import pickle
-
-
-def save_pkl(data, path):
-    with open(path, "wb") as f:
-        pickle.dump(data, f)
+import csv
 
 
 def save_csv(data, path):
-    pass
+
+    print("Writing data to [{}]... ".format(path), end="")
+
+    with open(path, 'w', newline='') as csvfile:
+        fieldnames = ['url', 'date']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+
+        for item in data:
+            writer.writerow(item)
+
+    print("Done")
 
 
 def process_args():
