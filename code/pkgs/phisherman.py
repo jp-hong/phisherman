@@ -60,28 +60,12 @@ class Phisherman:
         return " ".join(date_str.split()[1:6])
 
 
-    def __crawl(self):
+    def crawl(self):
         url_ids = []
         data = []
         
         for page in range(self.start, self.end + 1):
             url_ids += self.__get_ids(page)
-
-        for url_id in url_ids:
-            data.append(self.__get_data(url_id))
-
-        return data
-
-
-    def run(self):
-        pass
-
-        
-    def test_run(self):
-        # return self.__crawl_page(0)
-
-        url_ids = self.__get_ids(0)
-        data = []
 
         for url_id in url_ids:
             data.append(self.__get_data(url_id))
