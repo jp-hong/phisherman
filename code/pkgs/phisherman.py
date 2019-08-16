@@ -9,6 +9,7 @@ class Phisherman:
     def __init__(self, start, end):
         self.__start = start
         self.__end = end
+        self.__success = 0
 
     
     def __get_start(self):
@@ -65,6 +66,7 @@ class Phisherman:
                 span:nth-child(1) > b:nth-child(1)").text
 
             date = self.__parse_date_string(soup.select_one(".small").text)
+            self.__success += 1
             print("Success")
             return {"url": phish_url, "date": date}
         else:
@@ -77,6 +79,7 @@ class Phisherman:
 
 
     def crawl(self):
+        print("Start crawling! Phisherman is gathering data...")
         url_ids = []
         data = []
         
@@ -91,6 +94,9 @@ class Phisherman:
 
             if result:
                 data.append(result)
+
+        print("Crawling complete! Successfully gathered {} urls".format(
+            self.__success))
 
         return data
 
