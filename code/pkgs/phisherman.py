@@ -62,6 +62,12 @@ class Phisherman:
 
     def __get_data(self, url_id):
         response = requests.get(self.__make_detail_page_url(url_id))
+        # while True:
+        #     response = requests.get(self.__make_detail_page_url(url_id))
+
+        #     if response.status_code == "200":
+        #         break
+        
         soup = bs(response.content, "html.parser")
 
         phish_url = soup.select_one(".padded > div:nth-child(4) > \
@@ -80,6 +86,23 @@ class Phisherman:
             page_data.append(data)
         finally:
             th_lock.release()
+
+
+    def __crawl_page(self, page):
+        url_ids = self.__get_ids(page)
+        page_data = []
+        th_lock = th.Lock()
+
+        threads = [th.Thread(target=self.__get_data_thread, args=(url_id, 
+            page_data, th_lock)) for url_id in url_ids]
+
+        for thread in threads:
+            thread.start()
+
+        for thread in threads:
+            thread.join()
+
+        return page_data
 
 
     def __parse_date_string(self, date_str):
@@ -104,7 +127,16 @@ class Phisherman:
 
         
     def test_run(self):
-        return self.__crawl()
+        # return self.__crawl_page(0)
+
+        url_ids = self.__get_ids(0)
+        data = []
+
+        for url_id in url_ids:
+            data.append(self.__get_data(url_id))
+
+        return data
+
 
 
     start = property(__get_start, __set_start)
