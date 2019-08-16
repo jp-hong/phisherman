@@ -13,7 +13,7 @@ def test():
     start, end = process_args()
     phisherman = Phisherman(start, end)
     data = phisherman.crawl()
-    save_csv(data, "data.csv")
+    save_csv(data, "new.csv")
     
 
 test()
