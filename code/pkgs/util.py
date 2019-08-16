@@ -19,10 +19,9 @@ def process_args():
         start = int(sys.argv[1])
         end = int(sys.argv[2])
     except:
-        print("Warning! No agruments entered. Default start and end pages will be used.")
+        print("Warning! No agruments entered, reverting to defaults")
         start = 0
-        end = 9
+        end = 0
 
     return start, end
 
-    
