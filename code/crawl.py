@@ -41,7 +41,12 @@ def crawl():
 # test function
 def test():
     p = Phisherman(0, 1)
-    print(p.test_run())
+    result = p.test_run()
+
+    print(len(result))
+
+    for line in result:
+        print(line)
 
 
 test()
