@@ -38,22 +38,38 @@ class Phisherman:
 
 
     def __get_ids(self, page):
+
+        print("Gathering links from page {}...".format(page), end="")
         response = requests.get(self.__make_page_url(page))
-        soup = bs(response.content, "html.parser")
-        elements = soup.select(".value:first-child > a")
-        url_ids = [element.text for element in elements]
-        return url_ids
+
+        if response.status_code == 200:
+            soup = bs(response.content, "html.parser")
+            elements = soup.select(".value:first-child > a")
+            url_ids = [element.text for element in elements]
+            print("Success")
+            return url_ids
+        else:
+            print("Fail")
+            return None
 
 
     def __get_data(self, url_id):
-        response = requests.get(self.__make_detail_page_url(url_id))        
-        soup = bs(response.content, "html.parser")
 
-        phish_url = soup.select_one(".padded > div:nth-child(4) > \
-            span:nth-child(1) > b:nth-child(1)").text
+        print("Gathering data for url {}...".format(url_id), end="")
+        response = requests.get(self.__make_detail_page_url(url_id))
 
-        date = self.__parse_date_string(soup.select_one(".small").text)
-        return {"url": phish_url, "date": date}
+        if response.status_code == 200:
+            soup = bs(response.content, "html.parser")
+
+            phish_url = soup.select_one(".padded > div:nth-child(4) > \
+                span:nth-child(1) > b:nth-child(1)").text
+
+            date = self.__parse_date_string(soup.select_one(".small").text)
+            print("Success")
+            return {"url": phish_url, "date": date}
+        else:
+            print("Fail")
+            return None
 
 
     def __parse_date_string(self, date_str):
@@ -65,10 +81,16 @@ class Phisherman:
         data = []
         
         for page in range(self.start, self.end + 1):
-            url_ids += self.__get_ids(page)
+            result = self.__get_ids(page)
+            
+            if result:
+                url_ids += result
 
         for url_id in url_ids:
-            data.append(self.__get_data(url_id))
+            result = self.__get_data(url_id)
+
+            if result:
+                data.append(result)
 
         return data
 
