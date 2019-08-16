@@ -24,14 +24,7 @@ def process_args():
         start = 0
         end = 9
 
-    try:
-        if sys.argv[3] == "-mpdisable":
-            mp = False
-            print("Warning! Multiprocessing disabled")
-    except:
-        mp = True
-
-    return start, end, mp
+    return start, end
 
 
 def crawl():
