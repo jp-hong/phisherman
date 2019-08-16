@@ -1,30 +1,9 @@
 
 
 from pkgs.phisherman import Phisherman
+from pkgs.util import *
 import sys
 import pickle
-
-
-def save_pkl(data, path):
-    with open(path, "wb") as f:
-        pickle.dump(data, f)
-
-
-def save_csv(data, path):
-    pass
-
-
-def process_args():
-
-    try:
-        start = int(sys.argv[1])
-        end = int(sys.argv[2])
-    except:
-        print("Warning! No agruments entered. Default start and end pages will be used.")
-        start = 0
-        end = 9
-
-    return start, end
 
 
 def crawl():
@@ -33,12 +12,13 @@ def crawl():
 
 # test function
 def test():
-    p = Phisherman(0, 1)
-    result = p.test_run()
+    start, end = process_args()
+    phisherman = Phisherman(start, end)
+    data = phisherman.crawl()
 
-    print(len(result))
+    print(len(data))
 
-    for line in result:
+    for line in data:
         print(line)
 
 
