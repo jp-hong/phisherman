@@ -1,5 +1,10 @@
-This is a WORK IN PROGRESS!
+# Phisherman
 
-The initial plan is to create a crawler that will collect phishing URLs from phishtank.com that have been validated and are online.
+This is a basic web crawler to collect phishing urls from phishtank.com
+It collects urls that are valid and online. This project was created to
+practice Python web crawling.
 
-The data will be saved as a csv file.
+If you are simply after phishtank data, it can be downloaded from their
+website.
+
+NOTE: Trying to crawl too many pages will result in a rate limit.
