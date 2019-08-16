@@ -71,6 +71,17 @@ class Phisherman:
         return {"url": phish_url, "date": date}
 
 
+    def __get_data_thread(self, url_id, page_data, th_lock):
+        data = self.__get_data(url_id)
+
+        th_lock.acquire()
+
+        try:
+            page_data.append(data)
+        finally:
+            th_lock.release()
+
+
     def __parse_date_string(self, date_str):
         return " ".join(date_str.split()[1:6])
 
